@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<Root Updated="2019-11-11 11:45:41">
+  <UserInfos>
+    <UserInfo Id="gmt" Password="gmt1234" IsAdmin="TRUE"/>
+    <UserInfo Id="test" Password="test1234" IsAdmin="FALSE"/>
+  </UserInfos>
+</Root>
