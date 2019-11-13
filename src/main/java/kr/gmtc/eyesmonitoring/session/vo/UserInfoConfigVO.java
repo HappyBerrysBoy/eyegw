@@ -1,21 +1,20 @@
 package kr.gmtc.eyesmonitoring.session.vo;
 
-import java.util.Hashtable;
-
+import java.util.HashMap;
 import org.springframework.stereotype.Component;
 
 @Component("userInfoConfig")
 public class UserInfoConfigVO {
-	private Hashtable<String, UserInfoVO> items;
+  private HashMap<String, UserInfoVO> items;
 	
 	public UserInfoConfigVO() {
-		this.items = new Hashtable<String, UserInfoVO>();
+		this.items = new HashMap<String, UserInfoVO>();
 	}
 	
-	public Hashtable<String, UserInfoVO> getItems() {
+	public HashMap<String, UserInfoVO> getItems() {
 		return items;
 	}
-	public void setItems(Hashtable<String, UserInfoVO> items) {
+	public void setItems(HashMap<String, UserInfoVO> items) {
 		this.items = items;
 	}
 }

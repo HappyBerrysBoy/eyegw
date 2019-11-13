@@ -22,8 +22,8 @@ public class UserPolicyController {
 	private UserInfoConfigVO userInfoConfig;
 	
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public UserInfoVO loginToken(HttpServletRequest request, HttpServletResponse response, UserParmVO parm) throws Exception {
+    // @ResponseBody
+    public String loginToken(HttpServletRequest request, HttpServletResponse response, UserParmVO parm) throws Exception {
     	if(parm != null) {
     		if(userInfoConfig.getItems().containsKey(parm.getId())) {
     			UserInfoVO serverUserInfo = userInfoConfig.getItems().get(parm.getId());
@@ -32,7 +32,8 @@ public class UserPolicyController {
     				UserInfoVO copyUserInfo = (UserInfoVO)serverUserInfo.clone();
     				copyUserInfo.setPassword(null); // Password null
     				SessionManager.getInstance().setUserInfo(request, copyUserInfo);
-        			return copyUserInfo;
+              // return copyUserInfo;
+              return "html/layout/layout.html";
     			}
     		}
     	}

@@ -18,10 +18,15 @@ public class MainController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model, HttpSession session) {
 		return "index.html";
+  }
+  
+  @RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model, HttpSession session) {
+		return "html/loginSessionTest.html";
 	}
 	
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public String home2(Model model, HttpSession session) {
+	public String view(Model model, HttpSession session) {
 		UserInfoVO userInfo = SessionManager.getInstance().getUserInfo(session);
 		
 		if(userInfo != null) {
@@ -32,11 +37,11 @@ public class MainController {
 	}
 	
 	@RequestMapping(value = "/rest", method = RequestMethod.GET)
-	public @ResponseBody String home3(Model model, HttpSession session) {
+	public @ResponseBody String resttest(Model model, HttpSession session) {
 		return "rest test";
 	}
 
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
+  @RequestMapping(value = "/error", method = RequestMethod.GET)
 	public @ResponseBody String error(Model model, HttpSession session) {
 		return "rest test";
 	}
