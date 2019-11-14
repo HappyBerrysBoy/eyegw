@@ -1,10 +1,91 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-</head>
-<body>
-login
-</body>
+<html lang="en">
+  <head>
+    <title>EYEGW Login</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+
+    <script src="/webjars/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
+    <script src="/webjars/font-awesome/5.11.2/js/all.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <line
+      rel="stylesheet"
+      href="/webjars/font-awesome/5.11.2/css/all.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+  </head>
+
+  <body>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+          <img src="" id="icon" alt="User Icon" />
+          <h1>EYEGW</h1>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" action="login.do">
+          <input
+            type="text"
+            id="id"
+            class="fadeIn second"
+            name="id"
+            placeholder="login"
+            value="gmt"
+          />
+          <input
+            type="text"
+            id="password"
+            class="fadeIn third"
+            name="password"
+            placeholder="password"
+            value="gmt1234"
+          />
+          <input
+            id="login"
+            type="submit"
+            class="fadeIn fourth"
+            value="Log In"
+          />
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+          <a class="underlineHover" href="#">Welcome To EYEGW</a>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    $(document).ready(function() {
+      // Login Event
+      $("#login").click(function() {
+        var loginID = $("#id").val();
+        var loginPW = $("#password").val();
+
+        $.post("/login.do", { id: loginID, password: loginPW }, function(data) {
+          if (data === "") {
+            alert("Please check ID/Password");
+            location.href = "/login";
+          } else {
+            location.href = "/view";
+          }
+        }).error(function() {
+          alert("Failed to call login API");
+        });
+      });
+    });
+  </script>
 </html>

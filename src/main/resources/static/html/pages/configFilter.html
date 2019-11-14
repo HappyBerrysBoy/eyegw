@@ -1,1 +1,175 @@
-configFilter
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    DISTRIBUTION POLICY
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>RECV TYPE</th>
+      <th>RECV NAME</th>
+      <th>RECV IP</th>
+      <th>RECV PORT</th>
+      <th>SEND TYPE</th>
+      <th>SEND NAME</th>
+      <th>TARGET IP</th>
+      <th>SEND PORT</th>
+      <th>USE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>CLIENT</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>SERVER</td>
+      <td>VMS</td>
+      <td>..*.*</td>
+      <td>8030</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>2</td>
+      <td>CLIENT</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>SERVER</td>
+      <td>VMS</td>
+      <td>..*.*</td>
+      <td>8030</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>3</td>
+      <td>CLIENT</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>SERVER</td>
+      <td>VMS</td>
+      <td>..*.*</td>
+      <td>8030</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<div class="form-row">
+  <div class="col-md-12" style="text-align:right;">
+    <button type="button" class="btn btn-primary">ADD</button>
+    <button type="button" class="btn btn-danger">DELETE</button>
+  </div>
+</div>
+<br /><br />
+
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    FILTERING POLICY
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>POCKET SEND Y/N</th>
+      <th>TARGET SENSOR</th>
+      <th>POCKET ID</th>
+      <th>MESSAGE TYPE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>000000</td>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>000000</td>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>000000</td>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>*</td>
+      <td>*</td>
+      <td>*</td>
+    </tr>
+  </tbody>
+</table>
+<div class="form-row">
+  <div class="col-md-12" style="text-align:right;">
+    <button type="button" class="btn btn-primary">ADD</button>
+    <button type="button" class="btn btn-danger">DELETE</button>
+    <button type="button" class="btn btn-success">APPLY</button>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#dtBasicExample").DataTable();
+    $(".dataTables_length").addClass("bs-select");
+  });
+</script>

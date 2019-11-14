@@ -1,1 +1,151 @@
-configTCPServer
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    TCP/IP SERVER
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>SERVER NAME</th>
+      <th>SERVER PORT</th>
+      <th>ALLOW ANY</th>
+      <th>USE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>VMS</td>
+      <td>8030</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" checked />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>2</td>
+      <td>Navigation Analysis Server</td>
+      <td>8040</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="form-row">
+  <div class="col-md-12" style="text-align:right;">
+    <button type="button" class="btn btn-primary">ADD</button>
+    <button type="button" class="btn btn-danger">DELETE</button>
+    <button type="button" class="btn btn-success">APPLY</button>
+  </div>
+</div>
+<br /><br />
+
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    ALLOW CLIENT LIST
+  </div>
+</div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>ALLOW NAME</th>
+      <th>ALLOW IP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>SERVICE CLIENT 1</td>
+      <td>127.0.0.1</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>SERVICE CLIENT 1</td>
+      <td>127.0.0.1</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>SERVICE CLIENT 1</td>
+      <td>127.0.0.1</td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>SERVICE CLIENT 1</td>
+      <td>127.0.0.1</td>
+    </tr>
+  </tbody>
+</table>
+<div class="form-row">
+  <div class="col-md-12" style="text-align:right;">
+    <button type="button" class="btn btn-primary">ADD</button>
+    <button type="button" class="btn btn-danger">DELETE</button>
+    <button type="button" class="btn btn-success">APPLY</button>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#dtBasicExample").DataTable();
+    $(".dataTables_length").addClass("bs-select");
+  });
+</script>
