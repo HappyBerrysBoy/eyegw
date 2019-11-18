@@ -1,0 +1,173 @@
+문 서 이 력
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring Status
+페이지 ID	Monitoring_02	페이지명	모니터링 대상 상태정보
+페이지 설명	모니터링 대상의 상태정보 표출 및 하드웨어 상태정보 표출
+작성일	2018. 11. 15	작성자	전종형
+
+URL / 응답 값
+
+① 게이트웨이 Start Time, Operation Time, Recv Buffer, Send Buffer 값 갱신 (MsgGroup : 0, MsgID : 1) - GW와 통신   
+-> URL : /tgw/statuses   
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 16:42:28.423","MsgGroup":"0","MsgID":"1"},"Data":{}}   
+-> 응답값 : 　{"result":[{"Header":{"MsgGroup":0,"SendDT":"2019-10-22 16:42:27","MsgID":1},"Data":{"Start":"2019-10-22 16:37:14","SendBuffer":0,"RecvBuffer":0}}]}
+[LoadSystemInfo(TGW)] Rest 응답 시간 : 2019:10:22 16:42:28
+
+② 프로그램 사용 메모리 및 CPU / 상태 갱신 (MsgGroup : 0, MsgID : 2) - MCS와 통신  
+-> URL : /tgw/statuses/0 (MCS에서 프로그램 등록 값 
+  -> 0번이 게이트웨이라고 가정)  
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 16:52:16.900","MsgGroup":"0","MsgID":"2"},"Data":{}}  
+-> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022165217","MsgID":2},"Data":{"Status":"Sl","UseMemory":"7.4","UseMemorySize":"302436","UseCPU":"2.65"}}]} 
+
+③ 하드웨어 상태 갱신 (MsgGroup : 0, MsgID : 3) - MCS와 통신  
+-> URL : statuses  
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 16:52:16.796","MsgGroup":"0","MsgID":"0"},"Data":{}}  
+-> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022165217","MsgID":0},"Data":{"UsedDisk":51631,"UsedMemory":3509,"TotalDisk":293839,"CPU":5.24,"TotalMemory":3944}}]}
+
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring Status
+페이지 ID	Monitoring_04	페이지명	모니터링 대상 서버 상태 표출
+페이지 설명	모니터링 대상의 서버 상태 표출 및 연결된 Service Client 목록 표출
+작성일	2018. 11. 15	작성자	전종형
+
+URL / 응답 값
+① 게이트웨이 Server 목록 및 상태 갱신 (MsgGroup : 0, MsgID : 3) - GW와 통신 
+-> URL : tgw/statuses 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 17:05:47.174","MsgGroup":"0","MsgID":"3"},"Data":{}}  
+-> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"2019-10-22 17:08:51","MsgID":3},"Data":[{"SC":[{"ServicePort":65112,"ServiceIP":"127.0.0.1","ServiceName":"Any Client","Connect":true,"SendBuffer":0,"ID":9900}],"SCCount":1,"Use":false,"ServerName":"RLY Service","SendBuffer":0,"ID":9900,"ServerPort":9900},{"SC":[],"SCCount":0,"Use":false,"ServerName":"발신#8030","SendBuffer":0,"ID":8030,"ServerPort":8030},{"SC":[],"SCCount":0,"Use":false,"ServerName":"발신#8040","SendBuffer":0,"ID":8031,"ServerPort":8031}]}]}
+
+
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring Status
+페이지 ID	Monitoring_05	페이지명	모니터링 대상 CLIENT 상태 표출
+페이지 설명	모니터링 대상의 CLIENT의 상태를 표출
+작성일	2018. 11. 15	작성자	전종형
+
+URL / 응답 값
+① 게이트웨이 Client 목록 및 상태 갱신 (MsgGroup : 0, MsgID : 4) - GW와 통신 
+-> URL : tgw/statuses 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 17:43:26.655","MsgGroup":"0","MsgID":"4"},"Data":{}} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"2019-10-22 17:43:25","MsgID":4},"Data":[{"ClientName":"LGS","Active":0,"IP":"127.0.0.1","Port":9904,"Connect":false,"SendBuffer":0,"ID":9904},{"ClientName":"RLYCLIENT","Active":0,"IP":"192.168.136.132","Port":9900,"Connect":false,"SendBuffer":0,"ID":9900},{"ClientName":"CLIENT#1","Active":0,"IP":"127.0.0.1","Port":9901,"Connect":false,"SendBuffer":0,"ID":9901},{"ClientName":"UGW","Active":0,"IP":"192.168.136.131","Port":9903,"Connect":false,"SendBuffer":0,"ID":9903}]}]}
+
+
+
+
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring CONFIGURATION
+페이지 ID	Monitoring_06	페이지명	모니터링 대상 시스템 설정정보
+페이지 설명	모니터링 대상의 시스템 설정 정보 불러오기 및 저장 
+작성일	2018. 11. 15	작성자	전종형
+
+URL / 응답 값
+① 지정 게이트웨이 System.xml 값 로드 (MsgGroup : 1, MsgID : 1) - MCS와 통신(Get 방식) 
+-> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정) 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 17:45:19.945","MsgGroup":"1","MsgID":"1"},"Data":{}} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022174520","MsgID":1},"Data":{"LogPort":9010,"BufSize":10000,"StatIsSend":false,"StatSndTime":60,"StatPort":9000,"IP":"127.0.0.1","GMSIsSend":false,"GMSPort":0,"StatCheckTime":60,"StatUpdateTime":5,"LogLevel":2,"Name":"EyeGW - JAVA Framework"}}]}
+
+② System.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 1) - MCS와 통신(Post 방식) 
+-> URL : cfg/tgw/statuses/0 (위와 동일) 
+-> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 17:57:15.344","MsgGroup":"1","MsgID":"1"},"Data":[{"Name":"EyeGW - JAVA Framework","IP":"127.0.0.1","BufSize":"10000","LogLevel":"2","LogPort":"9010","StatCheckTime":"60","StatUpdateTime":"5","StatSndTime":"60","StatIsSend":"false","StatPort":"9010","GMSIsSend":"false","GMSPort":"0","RLYPort":""}]} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022175716","MsgID":7},"Data":{"Success":true}}]}
+
+
+
+
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring CONFIGURATION
+페이지 ID	Monitoring_07	페이지명	모니터링 대상 서버 및 AllowClient 설정정보
+페이지 설명	모니터링 대상의 서버 및 AllowClient 설정 정보 불러오기 및 저장 
+작성일	2018. 11. 15	작성자	전종형
+
+Server 관련 URL / 응답 값
+① 지정 게이트웨이 Server.xml 값 로드 (MsgGroup : 1, MsgID : 2) - MCS와 통신(Get 방식) 
+-> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정) 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:01:19.539","MsgGroup":"1","MsgID":"2"},"Data":{}} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022180120","MsgID":2},"Data":[{"Use":true,"IP":"","Port":9010,"LineMode":true,"ReSend":false,"CheckRcv":false,"ID":9010,"Tag":0,"SingleConn":false,"Name":"System Log Service","AllowAny":true,"Interval":60},{"Use":true,"IP":"","Port":9000,"LineMode":true,"ReSend":false,"CheckRcv":false,"ID":9000,"Tag":0,"SingleConn":false,"Name":"System Status Service","AllowAny":true,"Interval":60},{"Use":true,"IP":"","Port":8030,"LineMode":true,"ReSend":true,"CheckRcv":false,"ID":8030,"Tag":0,"SingleConn":false,"Name":"Send#1","AllowAny":true,"Interval":60}]}]}
+
+② Server.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 2) - MCS와 통신(Post 방식) 
+-> URL : cfg/tgw/statuses/0 (위와 동일) 
+-> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 20:08:27.629","MsgGroup":"1","MsgID":"2"},"Data":[{"ID":"9010","Tag":"0","Name":"System Log Service","Port":"9010","USE":"true","AllowAny":"true","LineMode":"true","SingleConn":"false","ReSend":"false","CheckRcv":"false","Interval":"60"},{"ID":"9000","Tag":"0","Name":"System Status Service","Port":"9000","USE":"true","AllowAny":"true","LineMode":"true","SingleConn":"false","ReSend":"false","CheckRcv":"false","Interval":"60"}]} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022200828","MsgID":7},"Data":{"Success":true}}]}AllowClient 관련 URL / 응답 값
+
+① 지정 게이트웨이 AllowClient.xml 값 로드 (MsgGroup : 1, MsgID : 4) - MCS와 통신(Get 방식) 
+-> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정) 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:01:19.539","MsgGroup":"1","MsgID":"2"},"Data":{}} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022183337","MsgID":4},"Data":[{"IP":"192.168.0.151","ID":0,"ServerPort":8070,"Name":"지방청","RejectConn":"true"},{"IP":"127.0.0.1","ID":1,"ServerPort":8030,"Name":"통합 GW 2","RejectConn":"true"},{"IP":"192.168.0.105","ID":2,"ServerPort":9021,"Name":"함대사 1","RejectConn":"true"},{"IP":"192.168.0.106","ID":3,"ServerPort":9021,"Name":"함대사 2","RejectConn":"true"}]}]}
+
+② AllowClient.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 4) - MCS와 통신(Post 방식) 
+-> URL : cfg/tgw/statuses/0 (위와 동일) 
+-> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 20:03:15.344","MsgGroup":"1","MsgID":"4"},"Data":[{"ID":"0","ServerPort":"8070","IP":"192.168.0.151","Name":"지방청","RejectConn":"true","SndStat":"false"},{"ID":"1","ServerPort":"8030","IP":"127.0.0.1","Name":"통합 GW 2","RejectConn":"true","SndStat":"false"},{"ID":"2","ServerPort":"9021","IP":"192.168.0.105","Name":"함대사 1","RejectConn":"true","SndStat":"false"},{"ID":"3","ServerPort":"9021","IP":"192.168.0.106","Name":"함대사 2","RejectConn":"true","SndStat":"false"},{"ID":"4","ServerPort":"9994","IP":"192.168.2.32","Name":"Test","RejectConn":"true","SndStat":"false"},{"ID":"5","ServerPort":"9993","IP":"192.168.2.32","Name":"Test2","RejectConn":"true","SndStat":"false"}]} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022200316","MsgID":7},"Data":{"Success":true}}]}
+
+
+
+
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring CONFIGURATION
+페이지 ID	Monitoring_08	페이지명	모니터링 대상 클라이언트 설정정보
+페이지 설명	모니터링 대상의 클라이언트 설정 정보 불러오기 및 저장
+작성일	2018. 11. 15	작성자	전종형
+
+URL / 응답 값
+① 지정 게이트웨이 Client.xml 값 로드 (MsgGroup : 1, MsgID : 3) - MCS와 통신(Get 방식) 
+-> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정) 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:06:03.658","MsgGroup":"1","MsgID":"3"},"Data":{}} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022180604","MsgID":3},"Data":[{"ReconnIntv":60,"PIP":"192.168.2.129","Use":true,"Port":80,"LineMode":false,"ID":1,"Tag":0,"SIP":"192.168.133.1","ReconnUSE":true,"Name":"LTE"},{"ReconnIntv":60,"PIP":"192.168.2.129","Use":true,"Port":81,"LineMode":false,"ID":2,"Tag":0,"SIP":"127.0.0.1","ReconnUSE":true,"Name":"Kosnet"},{"ReconnIntv":60,"PIP":"127.0.0.1","Use":true,"Port":9920,"LineMode":false,"ID":3,"Tag":0,"SIP":"127.0.0.1","ReconnUSE":true,"Name":"LGS"},{"ReconnIntv":60,"PIP":"127.0.0.1","Use":true,"Port":9930,"LineMode":false,"ID":4,"Tag":0,"SIP":"127.0.0.1","ReconnUSE":true,"Name":"Satellite netWork G\/W Server"}]}]}
+
+② Client.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 3) - MCS와 통신(Post 방식) 
+-> URL : cfg/tgw/statuses/0 (위와 동일) 
+-> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 18:08:13.259","MsgGroup":"1","MsgID":"3"},"Data":[{"ID":"1","Tag":"0","Use":"true","Name":"LTE","PIP":"192.168.2.129","SIP":"192.168.133.1","Port":"80","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"2","Tag":"0","Use":"true","Name":"Kosnet","PIP":"192.168.2.129","SIP":"127.0.0.1","Port":"81","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"3","Tag":"0","Use":"true","Name":"LGS","PIP":"127.0.0.1","SIP":"127.0.0.1","Port":"9920","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"4","Tag":"0","Use":"true","Name":"Satellite netWork G/W Server","PIP":"127.0.0.1","SIP":"127.0.0.1","Port":"9930","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"5","Tag":"0","Use":"true","Name":"Test","PIP":"127.0.0.1","SIP":"127.0.0.1","Port":"9991","PacketType":"0","LineMode":"true","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"}]} 
+-> 응답값 :{"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022180814","MsgID":7},"Data":{"Success":true}}]} 
+
+
+
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring CONFIGURATION
+페이지 ID	Monitoring_09	페이지명	모니터링 대상 필터 설정정보
+페이지 설명	모니터링 대상의 필터 설정 정보 불러오기 및 저장
+작성일	2018. 11. 15	작성자	전종형
+URL / 응답 값
+① 지정 게이트웨이 Filter.xml 값 로드 (MsgGroup : 1, MsgID : 6) - MCS와 통신 
+-> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정) 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:14:02.886","MsgGroup":"1","MsgID":"6"},"Data":{}} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022181403","MsgID":6},"Data":[{"RECVPORT":9010,"SENDPORT":9920,"Filter":[{"TargetSensor":"*","DataPacketId":"*","ID":"002000","PacketSendYN":"Y","MessageType":"*"}],"PIP":"*.*.*.*","RECVTYPE":"SERVER","USE":"Y","TargetIP":"127.0.0.1","ID":"2","SENDTYPE":"CLIENT","Name":"System Log Service"},{"RECVPORT":9900,"SENDPORT":9010,"Filter":[{"TargetSensor":"*","DataPacketId":"*","ID":"003000","PacketSendYN":"Y","MessageType":"*"}],"PIP":"127.0.0.1","RECVTYPE":"CLIENT","USE":"N","TargetIP":"*.*.*.*","ID":"3","SENDTYPE":"SERVER","Name":"AIR-600"},{"RECVPORT":8090,"SENDPORT":8030,"Filter":[{"TargetSensor":"*","DataPacketId":"*","ID":"000000","PacketSendYN":"Y","MessageType":"*"}],"PIP":"192.168.133.1","RECVTYPE":"CLIENT","USE":"Y","TargetIP":"*.*.*.*","ID":"0","SENDTYPE":"SERVER","Name":"AIR-600"},{"RECVPORT":9910,"SENDPORT":9010,"Filter":[{"TargetSensor":"*","DataPacketId":"*","ID":"001000","PacketSendYN":"Y","MessageType":"*"}],"PIP":"127.0.0.1","RECVTYPE":"CLIENT","USE":"Y","TargetIP":"*.*.*.*","ID":"1","SENDTYPE":"SERVER","Name":"External Info Collection Server"}]}]}
+
+② Filter.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 6) - MCS와 통신 
+-> URL : cfg/tgw/statuses/0 (위와 동일) 
+-> 요청값 : {"Header":{"Method":"post","SendDT":"2019-10-22 18:15:23.732","MsgGroup":"1","MsgID":"6"},"Data":[{"ID":"0","Name":"AnyClient","PIP":"192.168.133.1","RECVPORT":"8090","RECVTYPE":"SERVER","TargetIP":"*.*.*.*","SENDPORT":"8030","SENDTYPE":"SERVER","USE":"Y","Filter":[{"ID":"000000","PacketSendYN":"Y","TargetSensor":"*","DataPacketId":"*","MessageType":"*"}]},{"ID":"1","Name":"AnyClient","PIP":"127.0.0.1","RECVPORT":"9910","RECVTYPE":"SERVER","TargetIP":"*.*.*.*","SENDPORT":"9010","SENDTYPE":"SERVER","USE":"Y","Filter":[{"ID":"001000","PacketSendYN":"Y","TargetSensor":"*","DataPacketId":"*","MessageType":"*"},{"ID":"001001","PacketSendYN":"Y","TargetSensor":"*","DataPacketId":"*","MessageType":"*"}]},{"ID":"2","Name":"System Log Service","PIP":"*.*.*.*","RECVPORT":"9010","RECVTYPE":"SERVER","TargetIP":"127.0.0.1","SENDPORT":"9920","SENDTYPE":"CLIENT","USE":"Y","Filter":[{"ID":"002000","PacketSendYN":"Y","TargetSensor":"*","DataPacketId":"*","MessageType":"*"}]}]} 
+-> 응답값 :{"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022181524","MsgID":7},"Data":{"Success":true}}]} 
+
+
+
+
+
+
+시스템명	EyeGW_Monitoring	단위업무명	Monitoring CONFIGURATION
+페이지 ID	Monitoring_10	페이지명	모니터링 대상 암복호화 설정 정보
+페이지 설명	모니터링 대상의 암복호화 설정 정보 불러오기 및 저장 
+작성일	2018. 11. 15	작성자	전종형
+
+URL / 응답 값
+① 지정 게이트웨이 Encrypt.xml 값 로드 (MsgGroup : 1, MsgID : 10) - MCS와 통신 
+-> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정) 
+-> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:06:03.658","MsgGroup":"1","MsgID":"10"},"Data":{}} 
+-> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022182843","MsgID":10},"Data":[{"Recv":false,"ConnType":1,"ID":9010,"Send":true}]}]}
+
+② Encrypt.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 10) - MCS와 통신 
+-> URL : cfg/tgw/statuses/0 (위와 동일) 
+-> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 18:28:42.187","MsgGroup":"1","MsgID":"10"},"Data":[{"ConnType":"1","ID":"9010","Send":"true","Recv":"false"}]} 
+-> 응답값 :{"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022182843","MsgID":7},"Data":{"Success":true}}]}
