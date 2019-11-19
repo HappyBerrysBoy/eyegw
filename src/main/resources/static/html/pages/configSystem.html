@@ -3,21 +3,21 @@
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">SYSTEM NAME</div>
-    <div class="col-md-9 label">EYEGW</div>
+    <div class="col-md-9 label"><input type="text" id="systemName" class="inputData"/></div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">SYSTEM IP</div>
-    <div class="col-md-9 label">127.0.0.1</div>
+    <div class="col-md-9 label"><input type="text" id="systemIP" class="inputData"/></div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">BUFFER SIZE</div>
-    <div class="col-md-8 label">10000</div>
-    <div class="col-md-1 label">EA</div>
+    <div class="col-md-8 label"><input type="text" id="bufferSize" class="inputData"/></div>
+    <div class="col-md-1 label" id="bufferUnit">EA</div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">SAVE LOG LEVEL</div>
     <div class="col-md-9">
-      <select class="form-control configCombobox">
+      <select class="form-control configCombobox" id="saveLogLevel">
         <option value="ALL">ALL</option>
         <option value="PART">PART</option>
         <option value="...">...</option>
@@ -26,17 +26,17 @@
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">LOG PORT</div>
-    <div class="col-md-9 label">9010</div>
+    <div class="col-md-9 label"><input type="text" id="logPort" class="inputData"/></div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">STATUS SEND TIME</div>
-    <div class="col-md-8 label">60</div>
-    <div class="col-md-1 label">SEC</div>
+    <div class="col-md-8 label"><input type="text" id="statusSendTime" class="inputData"/></div>
+    <div class="col-md-1 label" id="statusSendTimeUnit">SEC</div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">STATUS ISSEND</div>
     <div class="col-md-9">
-      <select class="form-control configCombobox">
+      <select class="form-control configCombobox" id="statusIsSend">
         <option value="Y">TRUE</option>
         <option value="F">FALSE</option>
       </select>
@@ -44,22 +44,22 @@
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">STATUS CHECK TIME</div>
-    <div class="col-md-8 label">60</div>
-    <div class="col-md-1 label">SEC</div>
+    <div class="col-md-8 label"><input type="text" id="statusCheckTime" class="inputData"/></div>
+    <div class="col-md-1 label" id="statusCheckTimeUnit">SEC</div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">STATUS UPDATE TIME</div>
-    <div class="col-md-8 label">5</div>
-    <div class="col-md-1 label">SEC</div>
+    <div class="col-md-8 label"><input type="text" id="statusUpdateTime" class="inputData"/></div>
+    <div class="col-md-1 label" id="statusUpdateTimeUnit">SEC</div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">STATUS PORT</div>
-    <div class="col-md-9 label">9000</div>
+    <div class="col-md-9 label"><input type="text" id="statusPort" class="inputData"/></div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">GMS ISSEND</div>
     <div class="col-md-9">
-      <select class="form-control configCombobox">
+      <select class="form-control configCombobox" id="gmsIsSend">
         <option value="Y">TRUE</option>
         <option value="F">FALSE</option>
       </select>
@@ -67,15 +67,94 @@
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">GMS PORT</div>
-    <div class="col-md-9 label">9050</div>
+    <div class="col-md-9 label"><input type="text" id="gmsPort" class="inputData"/></div>
   </div>
   <div class="form-row">
     <div class="col-md-3 title label">RLS PORT</div>
-    <div class="col-md-9 label">9099</div>
+    <div class="col-md-9 label"><input type="text" id="rlsPort" class="inputData"/></div>
   </div>
   <div class="form-row">
     <div class="col-md-12" style="text-align:right;">
-      <button type="button" class="btn btn-primary">APPLY</button>
+      <button type="button" class="btn btn-primary" id="btnApply">APPLY</button>
     </div>
   </div>
 </div>
+
+<script>
+  var sampleData = {
+    result: [
+      {
+        Header: { MsgGroup: 1, SendDT: "20191022174520", MsgID: 1 },
+        Data: {
+          LogPort: 9010,
+          BufSize: 10000,
+          StatIsSend: false,
+          StatSndTime: 60,
+          StatPort: 9000,
+          IP: "127.0.0.1",
+          GMSIsSend: false,
+          GMSPort: 0,
+          StatCheckTime: 60,
+          StatUpdateTime: 5,
+          LogLevel: 2,
+          Name: "EyeGW - JAVA Framework"
+        }
+      }
+    ]
+  };
+
+  setSystemInfo(sampleData.result[0].Data);
+
+  function setSystemInfo(data){
+    
+    $('#systemName').val(data.Name);
+    $('#systemIP').val(data.IP);
+    $('#bufferSize').val(data.BufSize);
+    $('#logPort').val(data.LogPort);
+    $('#statusSendTime').val(data.StatSndTime);
+    // $('#statusIsSend').text(data.StatIsSend);
+    $('#statusCheckTime').val(data.StatCheckTime);
+    $('#statusUpdateTime').val(data.StatUpdateTime);
+    $('#statusPort').val(data.StatPort);
+    // $('#gmsIsSend').text(data.GMSIsSend);
+    $('#gmsPort').val(data.GMSPort);
+    // #('#saveLogLevel').text(data.LogLevel);
+    $('#rlsPort').val('');
+  }
+
+  $('#btnApply').on('click', function(){
+  //   var param = [
+  //   {
+  //     Name: "EyeGW - JAVA Framework",
+  //     IP: "127.0.0.1",
+  //     BufSize: "10000",
+  //     LogLevel: "2",
+  //     LogPort: "9010",
+  //     StatCheckTime: "60",
+  //     StatUpdateTime: "5",
+  //     StatSndTime: "60",
+  //     StatIsSend: "false",
+  //     StatPort: "9010",
+  //     GMSIsSend: "false",
+  //     GMSPort: "0",
+  //     RLYPort: ""
+  //   }
+  // ];
+
+    param.Name = $('#systemName').val();
+    param.IP = $('#systemIP').val(data.IP);
+    param.BufSize = $('#bufferSize').val(data.BufSize);
+    // param.LogLevel = #('#saveLogLevel').text(data.LogLevel);
+    param.LogPort = $('#logPort').val(data.LogPort);
+    param.StatCheckTime = $('#statusCheckTime').val(data.StatCheckTime);
+    param.StatUpdateTime = $('#statusUpdateTime').val(data.StatUpdateTime);
+    param.StatSndTime = $('#statusSendTime').val(data.StatSndTime);
+    // param.StatIsSend = $('#statusIsSend').text(data.StatIsSend);
+    param.StatPort = $('#statusPort').val(data.StatPort);
+    // param.GMSIsSend = $('#gmsIsSend').text(data.GMSIsSend);
+    param.GMSPort = $('#gmsPort').val(data.GMSPort);
+    param.RLYPort = $('#rlsPort').val('');
+
+    // $.post();
+  });
+</script>

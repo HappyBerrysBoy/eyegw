@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="serverTable">
   <thead>
     <tr>
       <th></th>
@@ -15,54 +15,7 @@
       <th>USE</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c1" />
-          <label class="custom-control-label" for="c1"></label>
-        </div>
-      </th>
-      <td>1</td>
-      <td>VMS</td>
-      <td>8030</td>
-      <td>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c2" checked />
-          <label class="custom-control-label" for="c2"></label>
-        </div>
-      </td>
-      <td>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c3" checked />
-          <label class="custom-control-label" for="c3"></label>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c1" />
-          <label class="custom-control-label" for="c1"></label>
-        </div>
-      </th>
-      <td>2</td>
-      <td>Navigation Analysis Server</td>
-      <td>8040</td>
-      <td>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c2" />
-          <label class="custom-control-label" for="c2"></label>
-        </div>
-      </td>
-      <td>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c3" checked />
-          <label class="custom-control-label" for="c3"></label>
-        </div>
-      </td>
-    </tr>
-  </tbody>
+  <tbody></tbody>
 </table>
 <div class="form-row">
   <div class="col-md-12" style="text-align:right;">
@@ -79,7 +32,7 @@
   </div>
 </div>
 
-<table class="table table-bordered">
+<table class="table table-bordered" id="clientTable">
   <thead>
     <tr>
       <th></th>
@@ -88,52 +41,7 @@
       <th>ALLOW IP</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c1" />
-          <label class="custom-control-label" for="c1"></label>
-        </div>
-      </th>
-      <td>1</td>
-      <td>SERVICE CLIENT 1</td>
-      <td>127.0.0.1</td>
-    </tr>
-    <tr>
-      <th scope="row">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c1" />
-          <label class="custom-control-label" for="c1"></label>
-        </div>
-      </th>
-      <td>1</td>
-      <td>SERVICE CLIENT 1</td>
-      <td>127.0.0.1</td>
-    </tr>
-    <tr>
-      <th scope="row">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c1" />
-          <label class="custom-control-label" for="c1"></label>
-        </div>
-      </th>
-      <td>1</td>
-      <td>SERVICE CLIENT 1</td>
-      <td>127.0.0.1</td>
-    </tr>
-    <tr>
-      <th scope="row">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="c1" />
-          <label class="custom-control-label" for="c1"></label>
-        </div>
-      </th>
-      <td>1</td>
-      <td>SERVICE CLIENT 1</td>
-      <td>127.0.0.1</td>
-    </tr>
-  </tbody>
+  <tbody></tbody>
 </table>
 <div class="form-row">
   <div class="col-md-12" style="text-align:right;">
@@ -143,9 +51,188 @@
   </div>
 </div>
 
+<script id="templetServerRow" type="text/x-templet">
+  <tr>
+    <th scope="row">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="chkServer{{idx}}" />
+        <label class="custom-control-label" for="chkServer{{idx}}"></label>
+      </div>
+    </th>
+    <td>{{idxNo}}</td>
+    <td>{{name}}</td>
+    <td>{{port}}</td>
+    <td>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="chkAlloy{{idx}}" checked />
+        <label class="custom-control-label" for="chkAlloy{{idx}}"></label>
+      </div>
+    </td>
+    <td>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="chkUse{{idx}}" checked />
+        <label class="custom-control-label" for="chkUse{{idx}}"></label>
+      </div>
+    </td>
+  </tr>
+</script>
+
+<script id="templetClientRow" type="text/x-templet">
+  <tr>
+    <th scope="row">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="chkClient{{idx}}" />
+        <label class="custom-control-label" for="chkClient{{idx}}"></label>
+      </div>
+    </th>
+    <td>{{idxNo}}</td>
+    <td>{{name}}</td>
+    <td>{{ip}}</td>
+  </tr>
+</script>
+
 <script>
-  $(document).ready(function() {
-    $("#dtBasicExample").DataTable();
-    $(".dataTables_length").addClass("bs-select");
-  });
+  //   Server 관련 URL / 응답 값
+  // ① 지정 게이트웨이 Server.xml 값 로드 (MsgGroup : 1, MsgID : 2) - MCS와 통신(Get 방식)
+  // -> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정)
+  // -> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:01:19.539","MsgGroup":"1","MsgID":"2"},"Data":{}}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022180120","MsgID":2},"Data":[{"Use":true,"IP":"","Port":9010,"LineMode":true,"ReSend":false,"CheckRcv":false,"ID":9010,"Tag":0,"SingleConn":false,"Name":"System Log Service","AllowAny":true,"Interval":60},{"Use":true,"IP":"","Port":9000,"LineMode":true,"ReSend":false,"CheckRcv":false,"ID":9000,"Tag":0,"SingleConn":false,"Name":"System Status Service","AllowAny":true,"Interval":60},{"Use":true,"IP":"","Port":8030,"LineMode":true,"ReSend":true,"CheckRcv":false,"ID":8030,"Tag":0,"SingleConn":false,"Name":"Send#1","AllowAny":true,"Interval":60}]}]}
+
+  // ② Server.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 2) - MCS와 통신(Post 방식)
+  // -> URL : cfg/tgw/statuses/0 (위와 동일)
+  // -> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 20:08:27.629","MsgGroup":"1","MsgID":"2"},"Data":[{"ID":"9010","Tag":"0","Name":"System Log Service","Port":"9010","USE":"true","AllowAny":"true","LineMode":"true","SingleConn":"false","ReSend":"false","CheckRcv":"false","Interval":"60"},{"ID":"9000","Tag":"0","Name":"System Status Service","Port":"9000","USE":"true","AllowAny":"true","LineMode":"true","SingleConn":"false","ReSend":"false","CheckRcv":"false","Interval":"60"}]}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022200828","MsgID":7},"Data":{"Success":true}}]}AllowClient 관련 URL / 응답 값
+
+  // ① 지정 게이트웨이 AllowClient.xml 값 로드 (MsgGroup : 1, MsgID : 4) - MCS와 통신(Get 방식)
+  // -> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정)
+  // -> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:01:19.539","MsgGroup":"1","MsgID":"2"},"Data":{}}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022183337","MsgID":4},"Data":[{"IP":"192.168.0.151","ID":0,"ServerPort":8070,"Name":"지방청","RejectConn":"true"},{"IP":"127.0.0.1","ID":1,"ServerPort":8030,"Name":"통합 GW 2","RejectConn":"true"},{"IP":"192.168.0.105","ID":2,"ServerPort":9021,"Name":"함대사 1","RejectConn":"true"},{"IP":"192.168.0.106","ID":3,"ServerPort":9021,"Name":"함대사 2","RejectConn":"true"}]}]}
+
+  // ② AllowClient.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 4) - MCS와 통신(Post 방식)
+  // -> URL : cfg/tgw/statuses/0 (위와 동일)
+  // -> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 20:03:15.344","MsgGroup":"1","MsgID":"4"},"Data":[{"ID":"0","ServerPort":"8070","IP":"192.168.0.151","Name":"지방청","RejectConn":"true","SndStat":"false"},{"ID":"1","ServerPort":"8030","IP":"127.0.0.1","Name":"통합 GW 2","RejectConn":"true","SndStat":"false"},{"ID":"2","ServerPort":"9021","IP":"192.168.0.105","Name":"함대사 1","RejectConn":"true","SndStat":"false"},{"ID":"3","ServerPort":"9021","IP":"192.168.0.106","Name":"함대사 2","RejectConn":"true","SndStat":"false"},{"ID":"4","ServerPort":"9994","IP":"192.168.2.32","Name":"Test","RejectConn":"true","SndStat":"false"},{"ID":"5","ServerPort":"9993","IP":"192.168.2.32","Name":"Test2","RejectConn":"true","SndStat":"false"}]}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022200316","MsgID":7},"Data":{"Success":true}}]}
+
+  var serverSampleData = {
+    result: [
+      {
+        Header: { MsgGroup: 1, SendDT: "20191022180120", MsgID: 2 },
+        Data: [
+          {
+            Use: true,
+            IP: "",
+            Port: 9010,
+            LineMode: true,
+            ReSend: false,
+            CheckRcv: false,
+            ID: 9010,
+            Tag: 0,
+            SingleConn: false,
+            Name: "System Log Service",
+            AllowAny: true,
+            Interval: 60
+          },
+          {
+            Use: true,
+            IP: "",
+            Port: 9000,
+            LineMode: true,
+            ReSend: false,
+            CheckRcv: false,
+            ID: 9000,
+            Tag: 0,
+            SingleConn: false,
+            Name: "System Status Service",
+            AllowAny: true,
+            Interval: 60
+          },
+          {
+            Use: true,
+            IP: "",
+            Port: 8030,
+            LineMode: true,
+            ReSend: true,
+            CheckRcv: false,
+            ID: 8030,
+            Tag: 0,
+            SingleConn: false,
+            Name: "Send#1",
+            AllowAny: true,
+            Interval: 60
+          }
+        ]
+      }
+    ]
+  };
+
+  setServerTable(serverSampleData.result[0].Data);
+
+  function setServerTable(data) {
+    data.forEach((element, idx) => {
+      $("#serverTable tbody").append(
+        $("#templetServerRow")
+          .text()
+          .replace(/{{idx}}/g, idx)
+          .replace(/{{idxNo}}/g, idx + 1)
+          .replace(/{{name}}/g, element.Name)
+          .replace(/{{port}}/g, element.Port)
+      );
+    });
+  }
+
+  var sampleClientData = {
+    result: [
+      {
+        Header: { MsgGroup: 1, SendDT: "20191022183337", MsgID: 4 },
+        Data: [
+          {
+            IP: "192.168.0.151",
+            ID: 0,
+            ServerPort: 8070,
+            Name: "지방청",
+            RejectConn: "true"
+          },
+          {
+            IP: "127.0.0.1",
+            ID: 1,
+            ServerPort: 8030,
+            Name: "통합 GW 2",
+            RejectConn: "true"
+          },
+          {
+            IP: "192.168.0.105",
+            ID: 2,
+            ServerPort: 9021,
+            Name: "함대사 1",
+            RejectConn: "true"
+          },
+          {
+            IP: "192.168.0.106",
+            ID: 3,
+            ServerPort: 9021,
+            Name: "함대사 2",
+            RejectConn: "true"
+          }
+        ]
+      }
+    ]
+  };
+
+  setClientTable(sampleClientData.result[0].Data);
+
+  function setClientTable(data) {
+    data.forEach((element, idx) => {
+      $("#clientTable tbody").append(
+        $("#templetClientRow")
+          .text()
+          .replace(/{{idx}}/g, idx)
+          .replace(/{{idxNo}}/g, idx + 1)
+          .replace(/{{name}}/g, element.Name)
+          .replace(/{{ip}}/g, element.IP)
+      );
+    });
+  }
+
+  // $.post()...
+  $(document).ready(function() {});
 </script>
