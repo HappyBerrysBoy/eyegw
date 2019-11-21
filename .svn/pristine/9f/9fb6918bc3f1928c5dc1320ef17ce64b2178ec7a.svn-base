@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>test login</title>
+  </head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="/webjars/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".login").click(function() {
+        var loginID = $("#id").val();
+        var loginPW = $("#password").val();
+
+        var parm = { id: loginID, password: loginPW };
+        $.post("/login", parm, function(data) {
+          if (data === "") {
+            alert("AJAX FAILED!");
+          } else {
+            alert("AJAX SUCCESS!" + JSON.stringify(data));
+          }
+        }).error(function() {
+          alert("AJAX FAILED!");
+        });
+      });
+
+      $(".loginOut").click(function() {
+        $.post("/loginOut", function(data) {
+          alert("LogOut!" + data);
+        });
+      });
+    });
+  </script>
+  <body>
+    <form name="loginForm" type="POST">
+      <label
+        >사용자 ID : <input type="text" id="id" name="id" size=15"
+        value="gmt"/></label
+      ><br />
+      <label for="pass">비밀번호 : </label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        size="15"
+        value=""
+      /><br />
+      <button class="login" style="padding:3px">로그인</button><br />
+      <button class="loginOut" style="padding:3px">로그아웃</button>
+    </form>
+  </body>
+</html>

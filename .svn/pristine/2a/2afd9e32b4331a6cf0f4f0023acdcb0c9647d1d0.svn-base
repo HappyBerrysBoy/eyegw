@@ -1,0 +1,12 @@
+root=N:/workspaceMonitoring/eyesmonitoring
+
+#REST SERVER 
+server.address=0.0.0.0
+server.port=8081
+server.servlet.context-path=/
+
+#####################################################################
+# description    : deployment mode
+# possible value : local, production
+#####################################################################
+deployment.mode=local

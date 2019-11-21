@@ -6,6 +6,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.beans.factory.annotation.Value;
 // import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
@@ -13,6 +14,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import gmt.common.type.LogLevelType;
+import gmt.common.util.GmtUtils;
+import gmt.logger.GmtLogManager;
 // import gmt.common.type.LogLevelType;
 // import gmt.common.util.GmtUtils;
 // import gmt.logger.GmtLogManager;
@@ -23,10 +27,7 @@ import kr.gmtc.eyesmonitoring.session.vo.UserInfoVO;
 public class UserInfoManager {
 	private UserInfoConfigVO userInfoConfig;
 	
-	// public UserInfoManager(@Value("root") String path, UserInfoConfigVO userInfoConfig) {
-	public UserInfoManager(UserInfoConfigVO userInfoConfig) {
-		String path = "";
-		System.out.println("root path" + path);
+	 public UserInfoManager(@Value("${root}") String path, UserInfoConfigVO userInfoConfig) {
 		this.userInfoConfig = userInfoConfig;
 		this.initializeServerFromXML(path);
 	}
@@ -66,15 +67,13 @@ public class UserInfoManager {
 						
 						this.userInfoConfig.getItems().put(userInfo.getId(), userInfo);
 					} catch (Exception e) {
-						// GmtLogManager.getInstance().writeLevelLog(
-						// 		"[UserInfoManager] initializeServerFromXML Error " + GmtUtils.getStatckTrace(e), LogLevelType.LOG_ERROR, "AllLog");
-						continue;
+						 GmtLogManager.getInstance().writeLevelLog(
+						 		"[UserInfoManager] initializeServerFromXML Error " + GmtUtils.getStatckTrace(e), LogLevelType.LOG_ERROR, "AllLog");
 					}
 				}
 			}
 		} catch (Exception e) {
-			// GmtLogManager.getInstance().writeLevelLog("[MailConfigManager] initializeServerFromXML Error " + GmtUtils.getStatckTrace(e), LogLevelType.LOG_ERROR,
-			// 		"AllLog");
+			 GmtLogManager.getInstance().writeLevelLog("[UserInfoManager] initializeServerFromXML Error " + GmtUtils.getStatckTrace(e), LogLevelType.LOG_ERROR, "AllLog");
 		}
 	}
 }

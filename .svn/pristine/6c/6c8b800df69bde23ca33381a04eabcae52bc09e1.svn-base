@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EYEGW MONITORING</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,shrink-to-fit=no"
+    />
+
+    <script src="/webjars/axios/0.19.0/dist/axios.min.js"></script>
+    <script src="/webjars/jquery/1.12.4/jquery.min.js"></script>
+    <!-- <script src="/js/jquery.jsonp.js"></script> -->
+    <script src="/webjars/bootstrap/4.3.1/js/bootstrap.bundle.js"></script>
+    <script src="/webjars/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="/webjars/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/webjars/font-awesome/5.11.2/js/all.min.js"></script>
+    <script src="/webjars/chartjs/2.8.0/Chart.bundle.min.js"></script>
+    <script src="/js/jquery.treeview.js"></script>
+    <script src="/js/commonFunction.js"></script>
+    <script src="/js/requestRestAPI.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/webjars/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/webjars/font-awesome/5.11.2/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/webjars/chartjs/2.8.0/Chart.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="css/jquery.treeview.css" />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:7%;">
+      <a class="navbar-brand mr-auto mr-lg-0" href="#"
+        >EYEGW MONITORING(EYEGW-STATUS)</a
+      >
+      <button
+        class="navbar-toggler p-0 border-0"
+        type="button"
+        data-toggle="offcanvas"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div
+        class="navbar-collapse offcanvas-collapse"
+        id="navbarsExampleDefault"
+      >
+        <ul id="mainMenu" class="navbar-nav mr-auto"></ul>
+        <div>
+          <span style="font-size: 1.5em; color: white;">
+            <i class="fas fa-user"></i>
+            <span id="username"></span>
+          </span>
+          <span>&nbsp&nbsp</span>
+          <span id="logout" style="font-size: 1.5em; color: white;">
+            <i class="fas fa-sign-out-alt"></i>
+            Log Out
+          </span>
+        </div>
+      </div>
+    </nav>
+    <div id="content" style="height:93%;">
+      <table style="width:100%;height:100%;">
+        <tr stle="height:100%;">
+          <td class="leftmenu container">
+            <div id="leftmenu"></div>
+          </td>
+          <td class="container">
+            <div id="pagecontent"></div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+
+  <script>
+    let currpage = "";
+
+    $("#leftmenu").load("html/layout/leftmenu.html");
+
+    $(document).ready(function() {
+      // page event
+      $("#currpage").change();
+
+      // logout
+      $("#logout").on("click", function() {
+        location.href = "/logout.do";
+      });
+
+      // session check
+      chkSession();
+      setInterval(chkSession, 10 * 60 * 1000);
+    });
+
+    function chkSession() {
+      $.post("/checkSession.do", function(data) {
+        if (data) {
+          console.log(JSON.stringify(data));
+          var isAdmin = data.admin ? "(Admin)" : "(User)";
+          $("#username").text(data.id + isAdmin);
+
+          if (!data.admin) {
+            $("#configmenu").remove();
+          }
+        } else {
+          alert("Session Timeout");
+          location.href = "/login";
+        }
+      });
+    }
+  </script>
+</html>

@@ -1,0 +1,298 @@
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    TCP/IP CLIENT
+  </div>
+</div>
+
+<table class="table table-bordered" id="mainTable">
+  <thead>
+    <tr>
+      <th></th>
+      <th>ID</th>
+      <th>CONNECTION NAME</th>
+      <th>IP</th>
+      <th>PORT</th>
+      <th>RECONN</th>
+      <th>RECONN INTERVAL(Sec)</th>
+      <th>USE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" checked />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>60</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" checked />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>60</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" checked />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>60</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" checked />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>60</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" checked />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>60</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c1" />
+          <label class="custom-control-label" for="c1"></label>
+        </div>
+      </th>
+      <td>1</td>
+      <td>AIS Operation Server</td>
+      <td>127.0.0.1</td>
+      <td>8030</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c2" checked />
+          <label class="custom-control-label" for="c2"></label>
+        </div>
+      </td>
+      <td>60</td>
+      <td>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="c3" checked />
+          <label class="custom-control-label" for="c3"></label>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="form-row">
+  <div class="col-md-12" style="text-align:right;">
+    <button type="button" class="btn btn-primary">ADD</button>
+    <button type="button" class="btn btn-danger">DELETE</button>
+    <button type="button" class="btn btn-success">APPLY</button>
+  </div>
+</div>
+
+<script id="templetRow" type="text/x-templet">
+  <tr>
+    <th scope="row">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="chk{{idx}}" />
+        <label class="custom-control-label" for="chk{{idx}}"></label>
+      </div>
+    </th>
+    <td>{{idxNo}}</td>
+    <td>{{name}}</td>
+    <td>{{ip}}</td>
+    <td>{{port}}</td>
+    <td>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="chkReconn{{idx}}" checked />
+        <label class="custom-control-label" for="chkReconn{{idx}}"></label>
+      </div>
+    </td>
+    <td>{{interval}}</td>
+    <td>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="chkUse{{idx}}" checked />
+        <label class="custom-control-label" for="chkUse{{idx}}"></label>
+      </div>
+    </td>
+  </tr>
+</script>
+
+<script>
+  // ① 지정 게이트웨이 Client.xml 값 로드 (MsgGroup : 1, MsgID : 3) - MCS와 통신(Get 방식)
+  // -> URL : cfg/tgw/statuses/0 ( 0 - 프로그램이 게이트웨이라 가정)
+  // -> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 18:06:03.658","MsgGroup":"1","MsgID":"3"},"Data":{}}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":1,"SendDT":"20191022180604","MsgID":3},"Data":[{"ReconnIntv":60,"PIP":"192.168.2.129","Use":true,"Port":80,"LineMode":false,"ID":1,"Tag":0,"SIP":"192.168.133.1","ReconnUSE":true,"Name":"LTE"},{"ReconnIntv":60,"PIP":"192.168.2.129","Use":true,"Port":81,"LineMode":false,"ID":2,"Tag":0,"SIP":"127.0.0.1","ReconnUSE":true,"Name":"Kosnet"},{"ReconnIntv":60,"PIP":"127.0.0.1","Use":true,"Port":9920,"LineMode":false,"ID":3,"Tag":0,"SIP":"127.0.0.1","ReconnUSE":true,"Name":"LGS"},{"ReconnIntv":60,"PIP":"127.0.0.1","Use":true,"Port":9930,"LineMode":false,"ID":4,"Tag":0,"SIP":"127.0.0.1","ReconnUSE":true,"Name":"Satellite netWork G\/W Server"}]}]}
+
+  // ② Client.xml 값을 변경 했을 때 요청 및 응답 (MsgGroup : 1, MsgID : 3) - MCS와 통신(Post 방식)
+  // -> URL : cfg/tgw/statuses/0 (위와 동일)
+  // -> 요청값 : {"Header":{"Method":"post","Time":"2019-10-22 18:08:13.259","MsgGroup":"1","MsgID":"3"},"Data":[{"ID":"1","Tag":"0","Use":"true","Name":"LTE","PIP":"192.168.2.129","SIP":"192.168.133.1","Port":"80","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"2","Tag":"0","Use":"true","Name":"Kosnet","PIP":"192.168.2.129","SIP":"127.0.0.1","Port":"81","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"3","Tag":"0","Use":"true","Name":"LGS","PIP":"127.0.0.1","SIP":"127.0.0.1","Port":"9920","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"4","Tag":"0","Use":"true","Name":"Satellite netWork G/W Server","PIP":"127.0.0.1","SIP":"127.0.0.1","Port":"9930","PacketType":"0","LineMode":"false","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"},{"ID":"5","Tag":"0","Use":"true","Name":"Test","PIP":"127.0.0.1","SIP":"127.0.0.1","Port":"9991","PacketType":"0","LineMode":"true","RcvDec":"0","SndEnc":"0","SndStart":"false","Reconn":"true","ReconnInt":"60"}]}
+  // -> 응답값 :{"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022180814","MsgID":7},"Data":{"Success":true}}]}
+
+  var sampleData = {
+    result: [
+      {
+        Header: { MsgGroup: 1, SendDT: "20191022180604", MsgID: 3 },
+        Data: [
+          {
+            ReconnIntv: 60,
+            PIP: "192.168.2.129",
+            Use: true,
+            Port: 80,
+            LineMode: false,
+            ID: 1,
+            Tag: 0,
+            SIP: "192.168.133.1",
+            ReconnUSE: true,
+            Name: "LTE"
+          },
+          {
+            ReconnIntv: 60,
+            PIP: "192.168.2.129",
+            Use: true,
+            Port: 81,
+            LineMode: false,
+            ID: 2,
+            Tag: 0,
+            SIP: "127.0.0.1",
+            ReconnUSE: true,
+            Name: "Kosnet"
+          },
+          {
+            ReconnIntv: 60,
+            PIP: "127.0.0.1",
+            Use: true,
+            Port: 9920,
+            LineMode: false,
+            ID: 3,
+            Tag: 0,
+            SIP: "127.0.0.1",
+            ReconnUSE: true,
+            Name: "LGS"
+          },
+          {
+            ReconnIntv: 60,
+            PIP: "127.0.0.1",
+            Use: true,
+            Port: 9930,
+            LineMode: false,
+            ID: 4,
+            Tag: 0,
+            SIP: "127.0.0.1",
+            ReconnUSE: true,
+            Name: "Satellite netWork G\/W Server"
+          }
+        ]
+      }
+    ]
+  };
+
+  setTable(sampleData.result[0].Data);
+
+  function setTable(data) {
+    data.forEach((element, idx) => {
+      $("#mainTable tbody").append(
+        $("#templetRow")
+          .text()
+          .replace(/{{idx}}/g, idx)
+          .replace(/{{idxNo}}/g, idx + 1)
+          .replace(/{{name}}/g, element.Name)
+          .replace(/{{ip}}/g, element.PIP)
+          .replace(/{{port}}/g, element.Port)
+          .replace(/{{interval}}/g, element.ReconnIntv)
+      );
+    });
+  }
+
+  // $.post()...
+
+  $(document).ready(function() {});
+</script>

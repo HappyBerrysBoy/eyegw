@@ -1,0 +1,122 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#content {
+  /* height:100%; */
+}
+
+.leftmenu {
+  width: 15%;
+  vertical-align: top;
+  border-right: 2px solid #888;
+}
+
+.container {
+  padding: 20px;
+  vertical-align: top;
+}
+
+#pagecontent {
+  padding: 30px;
+}
+
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+/* content */
+.subtitle {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  background-color: #949aa0;
+  color: #fff;
+  border: 0px solid #fff;
+  width: 100%;
+}
+
+.contentTitle {
+}
+
+.list-group-item {
+  padding: 0.4rem 1rem;
+}
+
+.progress {
+  height: 35px;
+  width: 100%;
+}
+
+.form-row div {
+  text-align: center;
+  font-size: 20px;
+}
+
+.form-row .title {
+  background-color: #eee;
+}
+
+.form-row .label {
+  border: 2px solid #666;
+}
+
+.form-row {
+  margin-bottom: 5px;
+}
+
+.treeview.outer {
+  padding: 10px;
+  border: 2px solid #888;
+  border-radius: 5px;
+}
+.treeview ul span {
+  top: -6px;
+  position: relative;
+}
+
+.chartarea {
+  width: 33%;
+}
+
+.chartCanvas {
+  padding: 20px;
+  border: 3px solid #444;
+  margin-top: 5px;
+}
+
+.table.table-bordered {
+  text-align: center;
+}
+
+.configCombobox {
+  border: 2px solid #666;
+}
+
+/* checkbox */
+.btn span.fas {
+  opacity: 0;
+}
+.btn.active span.fas {
+  opacity: 1;
+}
+
+.btn.btn-xs {
+  padding: 0.12rem 0.25rem;
+  font-size: 0.375rem;
+}
+
+.table.dataTable {
+  border-collapse: collapse !important;
+}
+
+.inputData {
+  width: 100%;
+  border: 0px;
+}

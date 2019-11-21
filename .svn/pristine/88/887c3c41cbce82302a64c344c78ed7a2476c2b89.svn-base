@@ -1,0 +1,245 @@
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">PROGRAM STATUS</div>
+</div>
+<div class="form-row">
+  <div class="col-md-3 title label">START TIME</div>
+  <div id="startTime" class="col-md-9 label">
+    YYYY-MM-DD HH:MM:SS
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-md-3 title label">OPERATION TIME</div>
+  <div id="operationTime" class="col-md-9 label">
+    000 DAY - 00 HOUR - 00 MINUTE - 00 SECOND
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-md-3 title label">RCV BUFFER</div>
+  <div class="col-md-9">
+    <div class="progress">
+      <div
+        id="rcvBuffer"
+        class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+        role="progressbar"
+        style="width: 5%;color:#000;"
+      ></div>
+    </div>
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-md-3 title label">SEND BUFFER</div>
+  <div class="col-md-9">
+    <div class="progress">
+      <div
+        id="sendBuffer"
+        class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+        role="progressbar"
+        style="width: 75%;color:#000;"
+      ></div>
+    </div>
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-md-3 title label">PROGRAM USE CPU</div>
+  <div class="col-md-9">
+    <div class="progress">
+      <div
+        id="prgUsedCpu"
+        class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+        role="progressbar"
+        style="width: 75%;color:#000;"
+      ></div>
+    </div>
+  </div>
+</div>
+<div class="form-row">
+  <div class="col-md-3 title label">PROGRAM USE MEMORY</div>
+  <div class="col-md-9">
+    <div class="progress">
+      <div
+        id="prgUsedMemory"
+        class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+        role="progressbar"
+        style="width: 75%;color:#000;"
+      ></div>
+    </div>
+  </div>
+</div>
+<br /><br /><br />
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">HARDWARD STATUS</div>
+</div>
+<div class="form-row">
+  <div class="col-md-4">
+    <div class="col-md-12 title label">CPU</div>
+    <div class="chartCanvas">
+      <canvas id="cpuChart" class="chartarea"></canvas>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="col-md-12 title label">MEMORY</div>
+    <div class="chartCanvas">
+      <canvas id="memoryChart" class="chartarea"></canvas>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="col-md-12 title label">DISK</div>
+    <div class="chartCanvas">
+      <canvas id="diskChart" class="chartarea"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ① 게이트웨이 Start Time, Operation Time, Recv Buffer, Send Buffer 값 갱신 (MsgGroup : 0, MsgID : 1) - GW와 통신
+  // -> URL : /tgw/statuses
+  // -> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 16:42:28.423","MsgGroup":"0","MsgID":"1"},"Data":{}}
+  // -> 응답값 : 　{"result":[{"Header":{"MsgGroup":0,"SendDT":"2019-10-22 16:42:27","MsgID":1},"Data":{"Start":"2019-10-22 16:37:14","SendBuffer":0,"RecvBuffer":0}}]}
+  // [LoadSystemInfo(TGW)] Rest 응답 시간 : 2019:10:22 16:42:28
+
+  // ② 프로그램 사용 메모리 및 CPU / 상태 갱신 (MsgGroup : 0, MsgID : 2) - MCS와 통신
+  // -> URL : /tgw/statuses/0 (MCS에서 프로그램 등록 값
+  //   -> 0번이 게이트웨이라고 가정)
+  // -> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 16:52:16.900","MsgGroup":"0","MsgID":"2"},"Data":{}}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022165217","MsgID":2},"Data":{"Status":"Sl","UseMemory":"7.4","UseMemorySize":"302436","UseCPU":"2.65"}}]}
+
+  // ③ 하드웨어 상태 갱신 (MsgGroup : 0, MsgID : 3) - MCS와 통신
+  // -> URL : statuses
+  // -> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 16:52:16.796","MsgGroup":"0","MsgID":"0"},"Data":{}}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"20191022165217","MsgID":0},"Data":{"UsedDisk":51631,"UsedMemory":3509,"TotalDisk":293839,"CPU":5.24,"TotalMemory":3944}}]}
+
+  // Set Gateway Data
+  var sample_gatewayData = {
+    result: [
+      {
+        Header: { MsgGroup: 0, SendDT: "2019-10-22 16:42:27", MsgID: 1 },
+        Data: { Start: "2019-10-22 16:37:14", SendBuffer: 80, RecvBuffer: 90 }
+      }
+    ]
+  };
+
+  setGatewayData(sample_gatewayData.result[0].Data);
+
+  function setGatewayData(data) {
+    $("#startTime").text(data.Start);
+    const gwStartDate = +new Date(data.Start.replace(" ", "T"));
+    const interval = +new Date() - gwStartDate;
+    const operationDay = Math.floor(interval / 86400000, 0);
+    const operationHour = Math.floor(
+      (interval - 86400000 * operationDay) / 3600000,
+      0
+    );
+    const operationMinute = Math.floor(
+      (interval - 86400000 * operationDay - operationHour * 3600000) / 60000,
+      0
+    );
+    const operationSecond = Math.floor(
+      (interval -
+        86400000 * operationDay -
+        operationHour * 3600000 -
+        operationMinute * 60000) /
+        1000,
+      0
+    );
+
+    $("#operationTime").text(
+      `${operationDay} DAY - ${operationHour} HOUR - ${operationMinute} MINUTE - ${operationSecond} SECOND`
+    );
+
+    $("#rcvBuffer").css("width", `${data.RecvBuffer}%`);
+    $("#rcvBuffer").text(`${data.RecvBuffer}%/100%`);
+    $("#sendBuffer").css("width", `${data.SendBuffer}%`);
+    $("#sendBuffer").text(`${data.SendBuffer}%/100%`);
+  }
+
+  // Set Program Information
+  var sample_programUsed = {
+    result: [
+      {
+        Header: { MsgGroup: 0, SendDT: "20191022165217", MsgID: 2 },
+        Data: {
+          Status: "Sl",
+          UseMemory: "7.4",
+          UseMemorySize: "302436",
+          UseCPU: "2.65"
+        }
+      }
+    ]
+  };
+
+  setPrgUsages(sample_programUsed.result[0].Data);
+
+  function setPrgUsages(data) {
+    $("#prgUsedCpu").css("width", `${data.UseCPU}%`);
+    $("#prgUsedCpu").text(`${data.UseCPU}%/100%`);
+    $("#prgUsedMemory").css("width", `${data.UseMemory}%`);
+    $("#prgUsedMemory").text(`${data.UseMemory}%/100%`);
+  }
+
+  // Set Hardware Information
+  var sample_hardwardUsed = {
+    result: [
+      {
+        Header: { MsgGroup: 0, SendDT: "20191022165217", MsgID: 0 },
+        Data: {
+          UsedDisk: 51631,
+          UsedMemory: 3509,
+          TotalDisk: 293839,
+          CPU: 5.24,
+          TotalMemory: 3944
+        }
+      }
+    ]
+  };
+
+  setHWUsages(sample_hardwardUsed.result[0].Data);
+
+  function setChart(chartId, data) {
+    var cpuChart = new Chart(
+      document.getElementById(chartId).getContext("2d"),
+      {
+        type: "pie",
+        data: data,
+        options: {}
+      }
+    );
+  }
+
+  function setHWUsages(data) {
+    var maxPercentage = 100;
+    var freeBackgroundColor = "#36A2EB";
+    var usedBackgroundColor = "#FF6384";
+
+    setChart("cpuChart", {
+      datasets: [
+        {
+          data: [data.CPU, maxPercentage - data.CPU],
+          backgroundColor: [usedBackgroundColor, freeBackgroundColor]
+        }
+      ],
+      labels: ["Used", "Free"]
+    });
+
+    const usedMemory = Math.round((data.UsedMemory / data.TotalMemory) * 100);
+    setChart("memoryChart", {
+      datasets: [
+        {
+          data: [usedMemory, maxPercentage - usedMemory],
+          backgroundColor: [usedBackgroundColor, freeBackgroundColor]
+        }
+      ],
+      labels: ["Used", "Free"]
+    });
+
+    const usedDisk = Math.round((data.UsedDisk / data.TotalDisk) * 100);
+    setChart("diskChart", {
+      datasets: [
+        {
+          data: [usedDisk, maxPercentage - usedDisk],
+          backgroundColor: [usedBackgroundColor, freeBackgroundColor]
+        }
+      ],
+      labels: ["Used", "Free"]
+    });
+  }
+</script>

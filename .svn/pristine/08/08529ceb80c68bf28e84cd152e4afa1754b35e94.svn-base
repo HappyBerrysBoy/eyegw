@@ -1,0 +1,100 @@
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    NETWORK - TCP/IP CLIENT
+  </div>
+</div>
+
+<table class="table table-bordered" id="mainTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>CLIENT NAME</th>
+      <th>CLIENT IP</th>
+      <th>CONNECT PORT</th>
+      <th>RCV BUFFER</th>
+      <th>SEND BUFFER</th>
+      <th>STATUS</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script id="templetMainRow" type="text/x-templet">
+  <tr>
+    <td>{{idx}}</td>
+    <td>{{name}}</td>
+    <td>{{ip}}</td>
+    <td>{{port}}</td>
+    <td>{{rcvBuffer}}</td>
+    <td>{{sendBuffer}}</td>
+    <td>{{status}}</td>
+  </tr>
+</script>
+
+<script>
+  var sampleData = {
+    result: [
+      {
+        Header: { MsgGroup: 0, SendDT: "2019-10-22 17:43:25", MsgID: 4 },
+        Data: [
+          {
+            ClientName: "LGS",
+            Active: 0,
+            IP: "127.0.0.1",
+            Port: 9904,
+            Connect: true,
+            SendBuffer: 0,
+            ID: 9904
+          },
+          {
+            ClientName: "RLYCLIENT",
+            Active: 0,
+            IP: "192.168.136.132",
+            Port: 9900,
+            Connect: false,
+            SendBuffer: 0,
+            ID: 9900
+          },
+          {
+            ClientName: "CLIENT#1",
+            Active: 0,
+            IP: "127.0.0.1",
+            Port: 9901,
+            Connect: false,
+            SendBuffer: 0,
+            ID: 9901
+          },
+          {
+            ClientName: "UGW",
+            Active: 0,
+            IP: "192.168.136.131",
+            Port: 9903,
+            Connect: false,
+            SendBuffer: 0,
+            ID: 9903
+          }
+        ]
+      }
+    ]
+  };
+
+  setMainTable(sampleData.result[0].Data);
+
+  function setMainTable(data) {
+    data.forEach((element, idx) => {
+      $("#mainTable tbody").append(
+        $("#templetMainRow")
+          .text()
+          .replace(/{{idx}}/g, idx + 1)
+          .replace(/{{name}}/g, element.ClientName)
+          .replace(/{{ip}}/g, element.IP)
+          .replace(/{{port}}/g, element.Port)
+          .replace(/{{rcvBuffer}}/g, "")
+          .replace(/{{sendBuffer}}/g, `${element.SendBuffer}%`)
+          .replace(/{{status}}/g, element.Connect ? "NORMAL" : "FAIL")
+      );
+    });
+  }
+
+  $(document).ready(function() {});
+</script>

@@ -1,0 +1,179 @@
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    NETWORK - TCP/IP SERVER
+  </div>
+</div>
+
+<table class="table table-bordered" id="mainTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>SERVER NAME</th>
+      <th>SERVER PORT</th>
+      <th>BUFFER</th>
+      <th>CONNECTION COUNT</th>
+      <th>STATUS</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+<br /><br />
+
+<div class="form-row">
+  <div class="alert alert-warning subtitle" role="alert">
+    [ID - 2] SERVER2 (8040) CONNECTION INFORMATION
+  </div>
+</div>
+
+<table class="table table-bordered" id="subTable">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>SERVICE NAME</th>
+      <th>SERVICE IP</th>
+      <th>SERVICE PORT</th>
+      <th>BUFFER</th>
+      <th>STATUS</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<script id="templetMainRow" type="text/x-templet">
+  <tr>
+    <td>{{idx}}</td>
+    <td>{{name}}</td>
+    <td>{{port}}</td>
+    <td>{{buffer}}</td>
+    <td>{{count}}</td>
+    <td>{{status}}</td>
+  </tr>
+</script>
+
+<script id="templetSubRow" type="text/x-templet">
+  <tr>
+    <td>{{idx}}</td>
+    <td>{{name}}</td>
+    <td>{{ip}}</td>
+    <td>{{port}}</td>
+    <td>{{buffer}}</td>
+    <td>{{status}}</td>
+  </tr>
+</script>
+
+<script>
+  //   ① 게이트웨이 Server 목록 및 상태 갱신 (MsgGroup : 0, MsgID : 3) - GW와 통신
+  // -> URL : tgw/statuses
+  // -> 요청값 : {"Header":{"Method":"get","Time":"2019-10-22 17:05:47.174","MsgGroup":"0","MsgID":"3"},"Data":{}}
+  // -> 응답값 : {"result":[{"Header":{"MsgGroup":0,"SendDT":"2019-10-22 17:08:51","MsgID":3},"Data":[{"SC":[{"ServicePort":65112,"ServiceIP":"127.0.0.1","ServiceName":"Any Client","Connect":true,"SendBuffer":0,"ID":9900}],"SCCount":1,"Use":false,"ServerName":"RLY Service","SendBuffer":0,"ID":9900,"ServerPort":9900},{"SC":[],"SCCount":0,"Use":false,"ServerName":"발신#8030","SendBuffer":0,"ID":8030,"ServerPort":8030},{"SC":[],"SCCount":0,"Use":false,"ServerName":"발신#8040","SendBuffer":0,"ID":8031,"ServerPort":8031}]}]}
+  var sampleData = {
+    result: [
+      {
+        Header: { MsgGroup: 0, SendDT: "2019-10-22 17:08:51", MsgID: 3 },
+        Data: [
+          {
+            SC: [
+              {
+                ServicePort: 65112,
+                ServiceIP: "127.0.0.1",
+                ServiceName: "Any Client",
+                Connect: true,
+                SendBuffer: 0,
+                ID: 9900
+              }
+            ],
+            SCCount: 1,
+            Use: false,
+            ServerName: "RLY Service",
+            SendBuffer: 0,
+            ID: 9900,
+            ServerPort: 9900
+          },
+          {
+            SC: [
+              {
+                ServicePort: 00000,
+                ServiceIP: "127.0.0.1",
+                ServiceName: "TEST",
+                Connect: true,
+                SendBuffer: 0,
+                ID: 9900
+              },
+              {
+                ServicePort: 11111,
+                ServiceIP: "127.0.0.1",
+                ServiceName: "TEST1111",
+                Connect: true,
+                SendBuffer: 0,
+                ID: 9900
+              },
+              {
+                ServicePort: 22222,
+                ServiceIP: "127.0.0.1",
+                ServiceName: "TEST2222",
+                Connect: true,
+                SendBuffer: 0,
+                ID: 9900
+              }
+            ],
+            SCCount: 3,
+            Use: false,
+            ServerName: "발신#8030",
+            SendBuffer: 0,
+            ID: 8030,
+            ServerPort: 8030
+          },
+          {
+            SC: [],
+            SCCount: 0,
+            Use: false,
+            ServerName: "발신#8040",
+            SendBuffer: 0,
+            ID: 8031,
+            ServerPort: 8031
+          }
+        ]
+      }
+    ]
+  };
+
+  setMainTable(sampleData.result[0].Data);
+
+  function setMainTable(data) {
+    data.forEach((element, idx) => {
+      $("#mainTable tbody").append(
+        $("#templetMainRow")
+          .text()
+          .replace(/{{idx}}/g, idx + 1)
+          .replace(/{{name}}/g, element.ServerName)
+          .replace(/{{port}}/g, element.ServerPort)
+          .replace(/{{buffer}}/g, `${element.SendBuffer}%`)
+          .replace(/{{count}}/g, element.SCCount)
+          .replace(/{{status}}/g, element.USE ? "NORMAL" : "FAIL")
+      );
+
+      $(`#mainTable tbody tr:eq(${idx})`).on("click", function() {
+        setDetailTable(element.SC);
+      });
+    });
+  }
+
+  function setDetailTable(data) {
+    $("#subTable tbody").html("");
+
+    data.forEach((element, idx) => {
+      $("#subTable tbody").append(
+        $("#templetSubRow")
+          .text()
+          .replace(/{{idx}}/g, idx + 1)
+          .replace(/{{name}}/g, element.ServiceName)
+          .replace(/{{ip}}/g, element.ServiceIP)
+          .replace(/{{port}}/g, element.ServicePort)
+          .replace(/{{buffer}}/g, `${element.SendBuffer}%`)
+          .replace(/{{status}}/g, element.Connect ? "NORMAL" : "FAIL")
+      );
+    });
+  }
+
+  $(document).ready(function() {});
+</script>

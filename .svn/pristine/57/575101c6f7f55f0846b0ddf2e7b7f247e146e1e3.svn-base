@@ -1,0 +1,9 @@
+{
+  "java.dependency.packagePresentation": "hierarchical",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveTimeout": 10000,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "editor.suggestSelection": "first",
+  "javascript.format.enable": true
+}

@@ -1,0 +1,96 @@
+<input type="hidden" id="currpage" value="statusSystem" />
+<div id="statusmenu">
+  <div class="alert alert-warning subtitle" role="alert">
+    STATUS
+  </div>
+  <div id="statusTreeview" class="outer">
+    <ul class="treeview-red treeview">
+      <li class="collapsable">
+        <div class="hitarea collapsable-hitarea"></div>
+        <span>SYSTEM</span>
+        <ul style="display: block;">
+          <li>
+            <span class="menu item" data-page="statusSystem">SYSTEM</span>
+          </li>
+          <li><span class="menu item" data-page="statusLog">LOG</span></li>
+        </ul>
+      </li>
+      <li class="collapsable">
+        <div class="hitarea collapsable-hitarea"></div>
+        <span>NETWORK</span>
+        <ul style="display: block;">
+          <li>
+            <span class="menu item" data-page="statusTCPServer"
+              >TCP/IP SERVER</span
+            >
+          </li>
+          <li>
+            <span class="menu item" data-page="statusTCPClient"
+              >TCP/IP CLIENT</span
+            >
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<br />
+<div id="configmenu">
+  <div class="alert alert-warning subtitle" role="alert">
+    CONGIFURATION
+  </div>
+  <div id="configTreeview" class="outer">
+    <ul class="treeview-red treeview">
+      <li class="collapsable">
+        <div class="hitarea collapsable-hitarea"></div>
+        <span class="">SYSTEM</span>
+        <ul style="display: block;">
+          <li>
+            <span class="menu item" data-page="configSystem">SYSTEM</span>
+          </li>
+        </ul>
+      </li>
+      <li class="collapsable">
+        <div class="hitarea collapsable-hitarea"></div>
+        <span>NETWORK</span>
+        <ul style="display: block;">
+          <li>
+            <span class="menu item" data-page="configTCPServer"
+              >TCP/IP SERVER</span
+            >
+          </li>
+          <li>
+            <span class="menu item" data-page="configTCPClient"
+              >TCP/IP CLIENT</span
+            >
+          </li>
+          <li>
+            <span class="menu item" data-page="configFilter">FILTER</span>
+          </li>
+          <li>
+            <span class="menu item" data-page="configEncrypt">ENCRYPT</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  $("#statusTreeview").treeview({});
+  $("#configTreeview").treeview({});
+
+  $(".menu.item").on("click", function() {
+    $("#currpage").attr("value", $(this).data("page"));
+    $("#currpage").change();
+  });
+
+  $("#currpage").on("change", function() {
+    console.log(
+      "loadpage -->" + "html/pages/" + $("#currpage").attr("value") + ".html"
+    );
+    $("#pagecontent").load("html/pages/" + $(this).attr("value") + ".html");
+  });
+
+  $("#currpage").change();
+</script>

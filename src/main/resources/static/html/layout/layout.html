@@ -16,6 +16,7 @@
     <script src="/webjars/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="/webjars/font-awesome/5.11.2/js/all.min.js"></script>
     <script src="/webjars/chartjs/2.8.0/Chart.bundle.min.js"></script>
+    <script src="/js/constants.js"></script>
     <script src="/js/jquery.treeview.js"></script>
     <script src="/js/commonFunction.js"></script>
     <script src="/js/requestRestAPI.js"></script>
@@ -42,7 +43,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:7%;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:5%;">
       <a class="navbar-brand mr-auto mr-lg-0" href="#"
         >EYEGW MONITORING(EYEGW-STATUS)</a
       >
@@ -72,7 +73,7 @@
         </div>
       </div>
     </nav>
-    <div id="content" style="height:93%;">
+    <div id="content" style="height:95%;">
       <table style="width:100%;height:100%;">
         <tr stle="height:100%;">
           <td class="leftmenu container">
@@ -87,8 +88,6 @@
   </body>
 
   <script>
-    let currpage = "";
-
     $("#leftmenu").load("html/layout/leftmenu.html");
 
     $(document).ready(function() {
@@ -104,7 +103,8 @@
       chkSession();
       setInterval(chkSession, 10 * 60 * 1000);
     });
-
+    
+    // check session
     function chkSession() {
       $.post("/checkSession.do", function(data) {
         if (data) {

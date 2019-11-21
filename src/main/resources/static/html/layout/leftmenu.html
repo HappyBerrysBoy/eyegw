@@ -1,6 +1,12 @@
 <input type="hidden" id="currpage" value="statusSystem" />
 <div id="statusmenu">
   <div class="alert alert-warning subtitle" role="alert">
+    SERVER
+  </div>
+  <select class="form-control configCombobox" id="selectServer">
+  </select>
+  <br>
+  <div class="alert alert-warning subtitle" role="alert">
     STATUS
   </div>
   <div id="statusTreeview" class="outer">
@@ -77,20 +83,84 @@
 </div>
 
 <script>
+var currServer = "";		// selected server name
+var serverInfo = {};		// server info list 
+
+// set server list(dropdown list) 즉시실행
+(function(){
+	ajaxGet('/serverlist', function(list){
+		console.log(list);
+		
+		serverInfo = list;
+		
+		// set dropdown items 
+		Object.keys(list).forEach(function(element){
+			$('#selectServer').append($('<option>', {
+			    value: list[element].name,
+			    text: list[element].name
+			}));
+		});
+		
+		currServer = getCurrentServer();
+		
+		if(currServer){
+			$("#selectServer").val(currServer).prop("selected", true);
+			localStorage.setItem(STORAGE_SERVERNAME, currServer);
+		}else{
+			$("#selectServer").val('');
+		}
+	},
+	function(error){
+		console.log('error!!!');
+	});
+})();
+
+// get current server name(load from localstorage)
+function getCurrentServer(){
+ 	if(!Object.keys(serverInfo).length) return '';
+ 	
+ 	const selectedSErver = localStorage.getItem(STORAGE_SERVERNAME);
+ 	
+ 	if(!selectedSErver){
+ 		return serverInfo[Object.keys(serverInfo)[0]].name;
+ 	}else{
+ 		return selectedSErver;
+ 	}
+}
+
+$(document).ready(function() {
+  // set treeview menu
   $("#statusTreeview").treeview({});
   $("#configTreeview").treeview({});
+  
+  // set default active menu
+  $('.menu.item:eq(0)').addClass('active');
 
+  // menu click event
   $(".menu.item").on("click", function() {
     $("#currpage").attr("value", $(this).data("page"));
     $("#currpage").change();
+    $(".menu.item").each(function(){
+    	$(this).removeClass('active');
+    });
+    $(this).addClass('active');
   });
 
+  // chagne page event
   $("#currpage").on("change", function() {
     console.log(
       "loadpage -->" + "html/pages/" + $("#currpage").attr("value") + ".html"
     );
     $("#pagecontent").load("html/pages/" + $(this).attr("value") + ".html");
   });
+  
+  // change server event
+  $("#selectServer").on("change", function() {
+	  currServer = $(this).val();
+	  localStorage.setItem(STORAGE_SERVERNAME, currServer);
+  });
 
+  // change page event trigger 
   $("#currpage").change();
+});
 </script>

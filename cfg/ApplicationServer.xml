@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<Root Updated="2019-11-21 11:48:11">  
+	<ApplicationServers>
+	  <ApplicationServer  Name="EYESV_TSS" Ip="127.0.0.1" Port="8080"/>
+	  <ApplicationServer  Name="EYESV_VPASS" Ip="127.0.0.1" Port="8080"/>
+	  <ApplicationServer  Name="MSG2DB" Ip="127.0.0.1" Port="8080"/>
+	  <ApplicationServer  Name="SAMP" Ip="127.0.0.1" Port="8080"/>
+	  <ApplicationServer  Name="HRA_POP3" Ip="127.0.0.1" Port="8080"/>
+	  <ApplicationServer  Name="KMA2DB" Ip="127.0.0.1" Port="8080"/>
+	  <ApplicationServer  Name="NAV_TO_DB" Ip="127.0.0.1" Port="8080"/>
+    </ApplicationServers>          	
+</Root>
